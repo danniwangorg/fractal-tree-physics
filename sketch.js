@@ -60,9 +60,10 @@ function setup() {
 // }
 
 let xoff = 0;
+let micLevel;
 
 function draw() {
-    background(0);
+    background(micLevel * 5, micLevel * 500, micLevel * 500);
     physics.update();
 
     xoff += 0.01;
@@ -78,8 +79,11 @@ function draw() {
     }
 
     micLevel = mic.getLevel();
-    let y = height - micLevel * height;
-    ellipse(width / 2, y, 10, 10);
+    for (let i = 0; i < micLevel * 5; i++) {
+        circle(random(width), random(height), random(10));
+    }
+    // let y = height - micLevel * height;
+    // ellipse(width / 2, y, 10, 10);
 
     for (let i = 0; i < tree.length; i++) {
         tree[i].show();
