@@ -5,18 +5,31 @@ let count = 0;
 
 let physics;
 let totalLevels = 8;
+let wind;
 
 let gb;
 
 let mic;
+let amp;
+
+let x = 50;
+let y = 0;
 
 function setup() {
     let cnv = createCanvas(windowWidth, windowHeight);
+    //create & start an audio input
     cnv.mousePressed(userStartAudio);
     mic = new p5.AudioIn();
     mic.start();
 
+    //create an amplitude object that will use mic as input
+    amp = new p5.Amplitude();
+    amp.setInput(mic);
+
     physics = new VerletPhysics2D();
+
+    wind = new Wind(0);
+
     gb = new GravityBehavior(new Vec2D(0, -0.01));
     physics.addBehavior(gb);
     physics.setWorldBounds(new Rect(0, 0, width, height));
@@ -52,6 +65,7 @@ function setup() {
             tree[i].finished = true;
         }
     }
+
 }
 
 // function mousePress() {
@@ -60,10 +74,10 @@ function setup() {
 // }
 
 let xoff = 0;
-let micLevel;
+
 
 function draw() {
-    background(micLevel * 5, micLevel * 500, micLevel * 500);
+    background(0);
     physics.update();
 
     xoff += 0.01;
@@ -77,13 +91,36 @@ function draw() {
         last.y = mouseY;
         last.unlock();
     }
+    // let micLevel;
+    // micLevel = mic.getLevel();
+    // for (let i = 0; i < micLevel * 5; i++) {
+    //     circle(random(width), random(height / 2), random(10));
+    // }
 
-    micLevel = mic.getLevel();
-    for (let i = 0; i < micLevel * 5; i++) {
-        circle(random(width), random(height), random(10));
+    //get the level of amplitude of the mic
+    let level = amp.getLevel();
+
+    stroke(255, 50);
+    fill(255, 10);
+    //draw ellipse in the middle of canvas
+    //use value of level for the width and height of ellipse
+    ellipse(x, y, level * width / 2, level * width / 2);
+
+    y += 2;
+
+    if (y > height) {
+        x += 80;
+        y = 0;
     }
-    // let y = height - micLevel * height;
-    // ellipse(width / 2, y, 10, 10);
+
+    if (x > width) {
+        y = 0;
+    }
+
+    // Randomly Create wind
+    wind.createWind()
+    wind.draw()
+    wind.update()
 
     for (let i = 0; i < tree.length; i++) {
         tree[i].show();
