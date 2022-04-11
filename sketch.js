@@ -65,7 +65,7 @@ function setup() {
             tree[i].finished = true;
         }
     }
-
+    //background(0);
 }
 
 // function mousePress() {
@@ -114,6 +114,7 @@ function draw() {
     }
 
     if (x > width) {
+        x = 25;
         y = 0;
     }
 
