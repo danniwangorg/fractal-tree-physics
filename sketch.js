@@ -11,6 +11,7 @@ let gb;
 
 let mic;
 let amp;
+let fr = 18;
 
 let x = 50;
 let y = 0;
@@ -19,6 +20,9 @@ function setup() {
     let cnv = createCanvas(windowWidth, windowHeight);
     //create & start an audio input
     cnv.mousePressed(userStartAudio);
+
+    frameRate(fr);
+
     mic = new p5.AudioIn();
     mic.start();
 
@@ -75,11 +79,17 @@ function setup() {
 
 let xoff = 0;
 
-
 function draw() {
     background(0);
+    for (let x = 10; x < width; x += 20) {
+        for (let y = 10; y < height; y += 20) {
+            noStroke();
+            let d = dist(x, y, mouseX, mouseY);
+            fill(frameCount % 255, x, y);
+            circle(x, y, d / 300);
+        }
+    }
     physics.update();
-
     xoff += 0.01;
     gb.scaledForce.y = map(noise(xoff + 1000), 0, 1, -0.02, 0.005);
     gb.scaledForce.x = map(noise(xoff), 0, 1, -0.05, 0.05);
@@ -90,6 +100,7 @@ function draw() {
         last.x = mouseX;
         last.y = mouseY;
         last.unlock();
+        //clear();
     }
     // let micLevel;
     // micLevel = mic.getLevel();
@@ -98,13 +109,14 @@ function draw() {
     // }
 
     //get the level of amplitude of the mic
-    let level = amp.getLevel();
+    let level = amp.getLevel() * 100;
+    console.log(level);
 
     stroke(255, 50);
     fill(255, 10);
     //draw ellipse in the middle of canvas
     //use value of level for the width and height of ellipse
-    ellipse(x, y, level * width / 2, level * width / 2);
+    ellipse(x, y, level / 100 * width / 2, level / 100 * width / 2);
 
     y += 2;
 
@@ -118,6 +130,17 @@ function draw() {
         y = 0;
     }
 
+    //microphone input affects speed
+    if (level < 10) {
+        fr = 18;
+        frameRate(fr);
+    } else {
+        fr = 60;
+        frameRate(fr);
+    }
+
+    console.log(fr);
+
     // Randomly Create wind
     wind.createWind()
     wind.draw()
@@ -126,4 +149,5 @@ function draw() {
     for (let i = 0; i < tree.length; i++) {
         tree[i].show();
     }
+
 }
