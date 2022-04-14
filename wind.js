@@ -2,7 +2,7 @@
 const Buildup_Strength = [-2, 2];
 
 // Min and Max Duration of the Buildup time
-const Buildup_Duration = [0, 10];
+const Buildup_Duration = [10, 30];
 
 // How rare the creation is
 const Creating_Change = 25;

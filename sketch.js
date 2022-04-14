@@ -16,6 +16,7 @@ let fr = 18;
 let x = 50;
 let y = 0;
 
+
 function setup() {
     let cnv = createCanvas(windowWidth, windowHeight);
     //create & start an audio input
@@ -28,6 +29,7 @@ function setup() {
 
     //create an amplitude object that will use mic as input
     amp = new p5.Amplitude();
+    //let ampLevel = amp.getLevel();
     amp.setInput(mic);
 
     physics = new VerletPhysics2D();
@@ -46,6 +48,7 @@ function setup() {
     physics.addParticle(b);
     let root = new Branch(a, b, 0);
     tree[0] = root;
+    //for (let n = 0; n < ampLevel; n++) {
     for (let n = 0; n < totalLevels; n++) {
         for (let i = tree.length - 1; i >= 0; i--) {
             if (!tree[i].finished) {
