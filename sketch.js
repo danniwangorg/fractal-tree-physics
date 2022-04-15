@@ -135,19 +135,17 @@ function draw() {
 
     //microphone input affects speed
     if (level < 10) {
-        fr = 18;
+        fr = 24;
         frameRate(fr);
     } else {
         fr = 60;
         frameRate(fr);
+        // Randomly Create wind
+        wind.createWind()
+        wind.draw()
+        wind.update()
     }
-
     console.log(fr);
-
-    // Randomly Create wind
-    wind.createWind()
-    wind.draw()
-    wind.update()
 
     for (let i = 0; i < tree.length; i++) {
         tree[i].show();
