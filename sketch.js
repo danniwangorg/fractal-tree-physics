@@ -11,7 +11,7 @@ let gb;
 
 let mic;
 let amp;
-let fr = 18;
+let fr;
 
 let x = 50;
 let y = 0;
@@ -22,7 +22,7 @@ function setup() {
     //create & start an audio input
     cnv.mousePressed(userStartAudio);
 
-    frameRate(fr);
+    //frameRate(fr);
 
     mic = new p5.AudioIn();
     mic.start();
