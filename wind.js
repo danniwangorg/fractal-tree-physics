@@ -2,7 +2,7 @@
 const Buildup_Strength = [-2, 2];
 
 // Min and Max Duration of the Buildup time
-const Buildup_Duration = [10, 30];
+const Buildup_Duration = [25, 30];
 
 // How rare the creation is
 const Creating_Change = 25;
@@ -16,7 +16,6 @@ const verbose = false;
 function randomInt(low, hih) {
     return floor(random() * (hih - low) + low);
 }
-
 
 class Wind {
     constructor(initialStrength) {
@@ -98,7 +97,7 @@ class wigglyLine {
 
         noFill();
         stroke(255, this.alpha);
-        strokeWeight(2);
+        strokeWeight(2.5);
         bezier(x - 150, y, x - 40, y - 100, x + 40, y + 100, x + 150, y);
     }
 

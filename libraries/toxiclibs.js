@@ -5,6 +5,7 @@
  * based on original work by [Karsten Schmidt](http://toxiclibs.org).
  * Licensed [GPLv2](http://www.gnu.org/licenses/lgpl-2.1.html) 
  */
+
 (function(f) {
     if (typeof exports === "object" && typeof module !== "undefined") { module.exports = f() } else if (typeof define === "function" && define.amd) { define([], f) } else {
         var g;
