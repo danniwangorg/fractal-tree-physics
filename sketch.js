@@ -126,7 +126,7 @@ function draw() {
         fr = 30;
         frameRate(fr);
     } else {
-        fr = 50;
+        fr = 40;
         frameRate(fr);
         // Randomly Create wind
         wind.createWind()
